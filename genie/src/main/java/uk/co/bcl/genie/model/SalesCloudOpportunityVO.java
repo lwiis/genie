@@ -1,228 +1,47 @@
 package uk.co.bcl.genie.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import uk.co.bcl.genie.model.metadata.AttributeVO;
+
 
 public class SalesCloudOpportunityVO extends RecordVO implements Serializable {
 
-    @SuppressWarnings("compatibility:6195159464576370139")
+    @SuppressWarnings("compatibility:-385627319963455204")
     private static final long serialVersionUID = 1L;
 
     static Logger logger = LogManager.getRootLogger();
 
-    // field names start with caps because of the way Sales Cloud names the fields
-    // and it was a hassle to keep "translating" between initial caps and camel case.
-    private String PrimaryOrganizationId, SalesMethod, SalesStage, OptyId, OptyNumber, StatusCode, PrimaryCompetitorId, OwnerResourcePartyId, TargetPartyId;
-
-    // TODO: how to take timezones into consideration?
-    private Date EffectiveDate;
+    private List<AttributeVO> attributes; 
+    
+    public SalesCloudOpportunityVO(JsonNode jsonOpportunity, List<AttributeVO> templateAttributes) {
         
-    private Date LastUpdateDate;
+        logger.entry();
+        
+        this.attributes = new ArrayList<AttributeVO>(templateAttributes.size()); 
+        
+        for(AttributeVO templateAttribute : templateAttributes) {
+            AttributeVO attribute = new AttributeVO(templateAttribute);
+            attribute.setValue(jsonOpportunity.get(templateAttribute.getName()).asText());
+            attributes.add(attribute);
+        }
     
-    private Double Revenue, WinProb;
-
-    private Boolean BudgetedFlag;
-    
-    private Double daysSinceLastUpdate;
-    
-    public Double getDaysSinceLastUpdate() {
-        logger.entry();
-        logger.exit();
-        return daysSinceLastUpdate;
-    }
-
-    public SalesCloudOpportunityVO() {
-        logger.entry();
-        logger.exit();
-    }
-
-    public SalesCloudOpportunityVO(String primaryOrganizationId, String salesMethod, String salesStage,
-                                   String optyId, String optyNumber, String statusCode, String ownerResourcePartyId,
-                                   String targetPartyId) {
-        logger.entry();
-
-        this.PrimaryOrganizationId = primaryOrganizationId;
-        this.SalesMethod = salesMethod;
-        this.SalesStage = salesStage;
-        this.OptyId = optyId;
-        this.OptyNumber = optyNumber;
-        this.StatusCode = statusCode;
-        this.OwnerResourcePartyId = ownerResourcePartyId;
-        this.TargetPartyId = targetPartyId;
-        this.Revenue = 0.0;
-        this.WinProb = 0.0;
-        this.BudgetedFlag = false;
 
         logger.exit();
     }
 
-    public SalesCloudOpportunityVO(String primaryOrganizationId, String salesMethodId, String salesStageId,
-                                   String optyId, String optyNumber, String statusCode, String primaryCompetitorId,
-                                   String ownerResourcePartyId, String targetPartyId, Date effectiveDate,
-                                   Date lastUpdateDate, Double revenue, Double winProb, Boolean budgetedFlag) {
-        logger.entry();
 
-        this.PrimaryOrganizationId = primaryOrganizationId;
-        this.SalesMethod = salesMethodId;
-        this.SalesStage = salesStageId;
-        this.OptyId = optyId;
-        this.OptyNumber = optyNumber;
-        this.StatusCode = statusCode;
-        this.PrimaryCompetitorId = primaryCompetitorId;
-        this.OwnerResourcePartyId = ownerResourcePartyId;
-        this.TargetPartyId = targetPartyId;
-        this.EffectiveDate = effectiveDate;
-        this.LastUpdateDate = lastUpdateDate;
-        this.Revenue = revenue;
-        this.WinProb = winProb;
-        this.BudgetedFlag = budgetedFlag;
-
-        logger.exit();
-    }
-
-    @JsonProperty("PrimaryOrganizationId")
-    public void setPrimaryOrganizationId(String primaryOrganizationId) {
-        logger.entry();
-        this.PrimaryOrganizationId = primaryOrganizationId;
-        logger.exit();
-    }
-
-    public String getPrimaryOrganizationId() {
-        logger.entry();
-        logger.exit();
-        return PrimaryOrganizationId;
-    }
-
-    @JsonProperty("SalesMethod")
-    public void setSalesMethod(String salesMethod) {
-        logger.entry();
-        this.SalesMethod = salesMethod;
-        logger.exit();
-    }
-
-    public String getSalesMethod() {
-        logger.entry();
-        logger.exit();
-        return SalesMethod;
-    }
-
-    @JsonProperty("SalesStage")
-    public void setSalesStage(String salesStage) {
-        logger.entry();
-        this.SalesStage = salesStage;
-        logger.exit();
-    }
-
-    public String getSalesStage() {
-        logger.entry();
-        logger.exit();
-        return SalesStage;
-    }
-
-    @JsonProperty("OptyId")
-    public void setOptyId(String optyId) {
-        logger.entry();
-        this.OptyId = optyId;
-        logger.exit();
-    }
-
-    public String getOptyId() {
-        logger.entry();
-        logger.exit();
-        return OptyId;
-    }
-
-    @JsonProperty("OptyNumber")
-    public void setOptyNumber(String optyNumber) {
-        logger.entry();
-        this.OptyNumber = optyNumber;
-        logger.exit();
-    }
-
-    public String getOptyNumber() {
-        logger.entry();
-        logger.exit();
-        return OptyNumber;
-    }
-
-    @JsonProperty("StatusCode")
-    public void setStatusCode(String statusCode) {
-        logger.entry();
-        this.StatusCode = statusCode;
-        logger.exit();
-    }
-
-    public String getStatusCode() {
-        logger.entry();
-        logger.exit();
-        return StatusCode;
-    }
-
-    @JsonProperty("PrimaryCompetitorId")
-    public void setPrimaryCompetitorId(String primaryCompetitorId) {
-        logger.entry();
-        this.PrimaryCompetitorId = primaryCompetitorId;
-        logger.exit();
-    }
-
-    public String getPrimaryCompetitorId() {
-        logger.entry();
-        logger.exit();
-        return PrimaryCompetitorId;
-    }
-
-    @JsonProperty("OwnerResourcePartyId")
-    public void setOwnerResourcePartyId(String ownerResourcePartyId) {
-        logger.entry();
-        this.OwnerResourcePartyId = ownerResourcePartyId;
-        logger.exit();
-    }
-
-    public String getOwnerResourcePartyId() {
-        logger.entry();
-        logger.exit();
-        return OwnerResourcePartyId;
-    }
-
-    @JsonProperty("TargetPartyId")
-    public void setTargetPartyId(String targetPartyId) {
-        logger.entry();
-        this.TargetPartyId = targetPartyId;
-        logger.exit();
-    }
-
-    public String getTargetPartyId() {
-        logger.entry();
-        logger.exit();
-        return TargetPartyId;
-    }
-
-    @JsonProperty("EffectiveDate")
-    public void setEffectiveDate(Date effectiveDate) {
-        logger.entry();
-        this.EffectiveDate = effectiveDate;
-        logger.exit();
-    }
-
-    public Date getEffectiveDate() {
-        logger.entry();
-        logger.exit();
-        return EffectiveDate;
-    }
-
+// event listeners to update calculated fields?
+/*
     @JsonProperty("LastUpdateDate")
     public void setLastUpdateDate(Date lastUpdateDate) {
         logger.entry();
@@ -234,163 +53,28 @@ public class SalesCloudOpportunityVO extends RecordVO implements Serializable {
         
         logger.exit();
     }
+*/
 
-    public Date getLastUpdateDate() {
-        logger.entry();
-        logger.exit();
-        return LastUpdateDate;
-    }
 
-    @JsonProperty("Revenue")
-    public void setRevenue(Double revenue) {
-        logger.entry();
-        this.Revenue = revenue;
-        logger.exit();
-    }
 
-    public Double getRevenue() {
-        logger.entry();
-        logger.exit();
-        return Revenue;
-    }
+//------------------------------
 
-    @JsonProperty("WinProb")
-    public void setWinProb(Double winProb) {
-        logger.entry();
-        this.WinProb = winProb;
-        logger.exit();
-    }
-
-    public Double getWinProb() {
-        logger.entry();
-        logger.exit();
-        return WinProb;
-    }
-
-    @JsonProperty("BudgetedFlag")
-    public void setBudgetedFlag(Boolean budgetedFlag) {
-        logger.entry();
-        this.BudgetedFlag = budgetedFlag;
-        logger.exit();
-    }
-
-    public Boolean getBudgetedFlag() {
-        logger.entry();
-        logger.exit();
-        return BudgetedFlag;
-    }
-
-    public String toJsonString() {
-
-        logger.entry();
-
-        StringBuilder output = new StringBuilder();
-        String value = "null";
-
-        for (Map.Entry<String, Object> entry : this.toHashMap().entrySet()) {
-            logger.debug("Field: " + entry.getKey() + " (" + entry.getValue().getClass() + ")");
-            logger.debug("Value: " + entry.getValue());
-
-            if (output.length() != 0) {
-                output.append(", ");
-            }
-
-            if (entry.getValue().getClass() == boolean.class)
-                value = Boolean.TRUE.equals(entry.getValue()) ? "true" : "false";
-            else if (entry.getValue().getClass() == String.class)
-                value = "\"" + entry.getValue() + "\"";
-            else if (entry.getValue().getClass() == Date.class) {
-                Date temp = (Date) entry.getValue();
-                value = new Long(temp.getTime()).toString();
-            }
-            else
-                value = entry.getValue().toString();
-
-            output.append("\"" + entry.getKey() + "\" : " + value);
-
-        }
-
-        logger.exit();
-
-        return "{" + output + "}";
-    }
 
     @Override
     public String toString() {
-        return toJsonString();
-    }
-
-    public String getFieldsAsString() {
-        logger.entry();
-
-        String output = String.join(",", this.toHashMap().keySet());
-        logger.debug(output);
-
-        logger.exit();
-
-        return output;
+        return this.attributes.stream().map(a -> a.getName() + ": " + a.getValue()).reduce((acc, item)  -> acc + "," + item).get();
     }
     
     public ArrayList<String> getFieldsAsList() {
         ArrayList<String> temp = new ArrayList<String>();
-        temp.addAll(this.toHashMap().keySet());
+        temp = this.attributes.stream().map(a -> a.getName()).collect(Collectors.toCollection(ArrayList::new));
         return temp;
     }
-
-    public String getDataAsString() {
-        logger.entry();
-
-        String output =
-            this.toHashMap().values().parallelStream()
-            .map(item -> {
-                 if(item == "null") return "?";
-                 else if(item.getClass() == String.class)
-                     return "\"" + item + "\"";
-                 else if (item.getClass() == Date.class)
-                     return new Long(((Date) item).toInstant().toEpochMilli()).toString();
-                else 
-                     return item.toString();})
-            .reduce(( acc, item) -> acc + "," + item).get();
-
-        logger.debug(output);
-
-        logger.exit();
-
-        return output;
-    }
-
-    private HashMap<String, Object> toHashMap() {
-        logger.entry();
-
-        Field[] fields = this.getClass().getDeclaredFields();
-
-        HashMap<String, Object> output = new HashMap<String, Object>();
-
-        for (Field f : fields) {
-            logger.debug("Field: " + f.toString());
-
-            Class t = f.getType();
-            if (!(t == Logger.class) && !(f.getName() == "serialVersionUID")) {
-
-                Object v;
-                try {
-                    v = f.get(this);
-                    logger.debug("field had value for this object");
-                } catch (IllegalAccessException e) {
-                    logger.debug("field did not have value for this object");
-                    v = "null";
-                }
-
-                if (v == null)
-                    v = "null";
-
-                output.put(f.getName(), v);                    
-            }
-        }
-
-        logger.exit();
-
-        return output;
+    
+    public ArrayList<String> getFieldValuesAsList() {
+        ArrayList<String> temp = new ArrayList<String>();
+        temp = this.attributes.stream().map(a -> a.getValue()).collect(Collectors.toCollection(ArrayList::new)); 
+        return temp;
     }
 }
 

@@ -1,27 +1,20 @@
 package uk.co.bcl.genie.utils;
 
-import java.io.*;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import jsat.DataSet;
 
-import jsat.ARFFLoader;
-import jsat.SimpleDataSet;
+import jsat.classifiers.CategoricalData;
+import jsat.classifiers.ClassificationDataSet;
+import jsat.classifiers.DataPoint;
 
-import jsat.classifiers.*;
-
-import jsat.linear.DenseVector;
 import jsat.linear.Vec;
 
 import jsat.regression.RegressionDataSet;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import uk.co.bcl.genie.model.SalesCloudOpportunityVO;
 
 /**
  * Copy of JSAT ARFFLoader class
@@ -41,6 +34,7 @@ public class OpportunityDataSet {
      * @param input the reader to load the data set from
      * @return the data set from the stream, or null of the file could not be loaded
      */
+    /*
     public static SimpleDataSet getOpportunityDataSet(List<SalesCloudOpportunityVO> input) {
 
         // TODO: create categories with field names
@@ -76,6 +70,8 @@ public class OpportunityDataSet {
         }
          * 
          */
+        
+        /*
         ArrayList<DataPoint> list = new ArrayList<DataPoint>();
 
         int numOfVars = 0;
@@ -199,6 +195,7 @@ public class OpportunityDataSet {
 
         return dataSet;
     }
+*/
 
     public static void writeArffFile(DataSet data, OutputStream os) {
         writeArffFile(data, os, "Default_Relation");

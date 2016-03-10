@@ -18,86 +18,100 @@ public class AttributeVO implements Serializable {
     private String type;
     private String title;
     private Integer maxLength;
-    private String lov;
+    private LovVO lov;
+    private String value;
+    //private String lov;
 
     @Override
     public String toString() {
         return this.name;
     }
 
+    public void setValue(String value) {
+        //logger.entry();
+        this.value = value;
+        //logger.exit();
+    }
+    
+    public String getValue() {
+        //logger.entry();
+        //logger.exit();
+        return value;
+    }    
+    
     public void setName(String name) {
-        logger.entry();
+        //logger.entry();
         this.name = name;
-        logger.exit();
+        //logger.exit();
     }
 
     public String getName() {
-        logger.entry();
-        logger.exit();
+        //logger.entry();
+        //logger.exit();
         return name;
     }
 
     public void setType(String type) {
-        logger.entry();
+        //logger.entry();
         this.type = type;
-        logger.exit();
+        //logger.exit();
     }
 
     public String getType() {
-        logger.entry();
-        logger.exit();
+        //logger.entry();
+        //logger.exit();
         return type;
     }
 
     public void setTitle(String title) {
-        logger.entry();
+        //logger.entry();
         this.title = title;
-        logger.exit();
+        //logger.exit();
     }
 
     public String getTitle() {
-        logger.entry();
-        logger.exit();
+        //logger.entry();
+        //logger.exit();
         return title;
     }
 
     public void setMaxLength(Integer maxLength) {
-        logger.entry();
+        //logger.entry();
         this.maxLength = maxLength;
-        logger.exit();
+        //logger.exit();
     }
 
     public Integer getMaxLength() {
-        logger.entry();
-        logger.exit();
+        //logger.entry();
+        //logger.exit();
         return maxLength;
     }
 
-    public void setLov(String lov) {
-        logger.entry();
+    public void setLov(LovVO lov) {
+        //logger.entry();
         this.lov = lov;
-        logger.exit();
+        //logger.exit();
     }
 
-    public String getLov() {
-        logger.entry();
-        logger.exit();
+    public LovVO getLov() {
+        //logger.entry();
+        //logger.exit();
         return lov;
     }
 
-
-    public AttributeVO(String name, String type, String title, Integer maxLength, String lov) {
-        logger.entry();
-        this.name = name;
-        this.type = type;
-        this.title = title;
-        this.maxLength = maxLength;
-        this.lov = lov;
-        logger.exit();
+    public AttributeVO() {
+        //logger.entry();
+        //logger.exit();
     }
     
-    public AttributeVO() {
-        logger.entry();
-        logger.exit();
+    public AttributeVO(AttributeVO original) {
+        //logger.entry();
+        this.name = original.getName();
+        this.type = original.getType();
+        this.title = original.getTitle();
+        this.maxLength = original.getMaxLength();
+        this.lov = new LovVO(original.getLov());
+        this.value = original.getValue();
+        //logger.exit();
     }
 }

@@ -2,6 +2,8 @@
 /home/luisfilipe/jdeveloper/mywork/Genie/genie/src/main/java/uk/co/bcl/genie/model/RecordVO.java
 /home/luisfilipe/jdeveloper/mywork/Genie/genie/src/main/java/uk/co/bcl/genie/app/OpportunitySVM.java
 /home/luisfilipe/jdeveloper/mywork/Genie/genie/src/main/java/uk/co/bcl/genie/utils/SalesCloudRestTemplate.java
+/home/luisfilipe/jdeveloper/mywork/Genie/genie/src/main/java/uk/co/bcl/genie/app/Initialize.java
+/home/luisfilipe/jdeveloper/mywork/Genie/genie/src/main/java/uk/co/bcl/genie/utils/OpportunityDataSet.java
 /home/luisfilipe/jdeveloper/mywork/Genie/genie/src/main/java/uk/co/bcl/genie/model/SalesCloudOpportunityVO.java
 /home/luisfilipe/jdeveloper/mywork/Genie/genie/src/main/java/uk/co/bcl/genie/model/SalesCloudOpportunityListVO.java
 /home/luisfilipe/jdeveloper/mywork/Genie/genie/src/main/java/uk/co/bcl/genie/model/metadata/ResourceVO.java

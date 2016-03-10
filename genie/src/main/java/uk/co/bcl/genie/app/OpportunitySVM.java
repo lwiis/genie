@@ -1,34 +1,12 @@
 package uk.co.bcl.genie.app;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.util.List;
-
-import jsat.ARFFLoader;
-
-import jsat.DataSet;
-
-import jsat.classifiers.CategoricalResults;
-import jsat.classifiers.ClassificationDataSet;
-import jsat.classifiers.ClassificationModelEvaluation;
-import jsat.classifiers.DataPoint;
-import jsat.classifiers.svm.PlatSMO;
-import jsat.classifiers.svm.SupportVectorLearner.CacheMode;
-
-import jsat.distributions.kernels.RBFKernel;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import uk.co.bcl.genie.model.SalesCloudOpportunityVO;
-import uk.co.bcl.genie.utils.OpportunityDataSet;
 
 public class OpportunitySVM {
 
     static Logger logger = LogManager.getRootLogger();
-
+/*
     public static void main(String[] args) {
         logger.entry();
         OpportunityController controller = new OpportunityController();
@@ -94,6 +72,7 @@ public class OpportunitySVM {
 
         logger.exit();
     }
+*/
     
     private static String getHeader() {
         
@@ -103,7 +82,7 @@ public class OpportunitySVM {
                  "   % \n" + 
                  "   % 2. Author: Luis Figueira\n" +
                  "   % \n" +
-                 "   % " + (new SalesCloudOpportunityVO().getFieldsAsString()) + 
+//                 "   % " + (new SalesCloudOpportunityVO().getFieldsAsString()) + 
                  "\n" + 
                  "@RELATION opportunity\n";
               

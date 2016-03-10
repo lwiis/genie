@@ -2,10 +2,8 @@ package uk.co.bcl.genie.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.lang.reflect.Field;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SalesCloudRevenueVO extends SalesCloudVO {
+public class SalesCloudRevenueVO {
 
     private String revnId;
     private String revnNumber;
